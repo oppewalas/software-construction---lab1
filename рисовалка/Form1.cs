@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PluginInterface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,9 +7,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using рисовалка.Properties;
 
 namespace рисовалка
@@ -27,6 +30,8 @@ namespace рисовалка
             CurrentTool = Tools.Pen;
             Filled = false;
             Width = 3;
+            FindPlugins();
+            CreatePluginsMenu();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -115,7 +120,7 @@ namespace рисовалка
             }
         }
 
-    private void файлToolStripMenuItem_Click(object sender, EventArgs e)
+        private void файлToolStripMenuItem_Click(object sender, EventArgs e)
         {
             сохранитьКакToolStripMenuItem.Enabled = !(ActiveMdiChild == null);
             сохранитьToolStripMenuItem.Enabled = !(ActiveMdiChild == null);
@@ -227,6 +232,110 @@ namespace рисовалка
         private void BrushSize_Click(object sender, EventArgs e)
         {
 
+        }
+        Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>();
+        Dictionary<string, bool> pluginStates = new Dictionary<string, bool>();
+
+        void FindPlugins()
+        {
+            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins.config");
+            XmlDocument doc = new XmlDocument();
+
+            if (!File.Exists(configPath))
+            {
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "utf-8", null);
+                XmlElement root = doc.CreateElement("Plugins");
+                doc.AppendChild(xmlDeclaration);
+                doc.AppendChild(root);
+            }
+            else
+            {
+                doc.Load(configPath);
+            }
+
+            XmlNode rootNode = doc.DocumentElement;
+
+            foreach (XmlNode node in rootNode.SelectNodes("Plugin"))
+            {
+                string name = node.Attributes["name"].Value;
+                bool enabled = bool.Parse(node.Attributes["enabled"].Value);
+                pluginStates[name] = enabled;
+            }
+
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string[] files = Directory.GetFiles(folder, "*.dll");
+
+            bool configModified = false;
+
+            foreach (string file in files)
+            {
+                try
+                {
+                    Assembly assembly = Assembly.LoadFile(file);
+
+                    foreach (Type type in assembly.GetTypes())
+                    {
+                        Type iface = type.GetInterface("PluginInterface.IPlugin");
+
+                        if (iface != null)
+                        {
+                            IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
+
+                            if (!pluginStates.ContainsKey(plugin.Name))
+                            {
+                                pluginStates[plugin.Name] = true;
+                                XmlElement pluginNode = doc.CreateElement("Plugin");
+                                pluginNode.SetAttribute("name", plugin.Name);
+                                pluginNode.SetAttribute("enabled", "true");
+                                rootNode.AppendChild(pluginNode);
+                                configModified = true;
+                            }
+
+                            if (pluginStates[plugin.Name])
+                            {
+                                plugins[plugin.Name] = plugin;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка загрузки плагина\n" + ex.Message);
+                }
+            }
+
+            if (configModified)
+            {
+                doc.Save(configPath);
+            }
+        }
+
+        private void CreatePluginsMenu()
+        {
+            foreach (var p in plugins)
+            {
+                var item = фильтрыToolStripMenuItem.DropDownItems.Add(p.Value.Name);
+                item.Click += OnPluginClick;
+            }
+        }
+
+        private void OnPluginClick(object sender, EventArgs args)
+        {
+            IPlugin plugin = plugins[((ToolStripMenuItem)sender).Text];
+            plugin.Transform((Bitmap)pictureBox.Image);
+            pictureBox.Refresh();
+
+        }
+
+        private void фильтрыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void плагиныToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PluginsDialog dialog = new PluginsDialog(plugins);
+            dialog.ShowDialog();
         }
     }
 }

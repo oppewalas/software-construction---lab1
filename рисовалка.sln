@@ -5,6 +5,16 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDIPaint", "рисовалка\MDIPaint.csproj", "{8CC15FA9-C75D-4A1B-9DE1-7CDC13D1AA9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrewittPlagin", "PrewittPlagin\PrewittPlagin.csproj", "{EE401361-E334-434D-B514-BEAC9586A13B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "PluginInterface\PluginInterface.csproj", "{6FC6EEF8-69B1-46EC-9361-B7FB8F761BED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixMedianPlagin", "MatrixMedianPlagin\MatrixMedianPlagin.csproj", "{4DFFF6C8-DED8-4755-9975-7FA522BA357C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinePiecesPlagin", "NinePiecesPlagin\NinePiecesPlagin.csproj", "{5E62B4C7-2C63-449A-B01C-DF95030AE72C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plagins", "Plagins", "{D145244E-C195-4331-AA85-DAD9FCE8DB34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +25,30 @@ Global
 		{8CC15FA9-C75D-4A1B-9DE1-7CDC13D1AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CC15FA9-C75D-4A1B-9DE1-7CDC13D1AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CC15FA9-C75D-4A1B-9DE1-7CDC13D1AA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE401361-E334-434D-B514-BEAC9586A13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE401361-E334-434D-B514-BEAC9586A13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE401361-E334-434D-B514-BEAC9586A13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE401361-E334-434D-B514-BEAC9586A13B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC6EEF8-69B1-46EC-9361-B7FB8F761BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC6EEF8-69B1-46EC-9361-B7FB8F761BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC6EEF8-69B1-46EC-9361-B7FB8F761BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC6EEF8-69B1-46EC-9361-B7FB8F761BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DFFF6C8-DED8-4755-9975-7FA522BA357C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DFFF6C8-DED8-4755-9975-7FA522BA357C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DFFF6C8-DED8-4755-9975-7FA522BA357C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DFFF6C8-DED8-4755-9975-7FA522BA357C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E62B4C7-2C63-449A-B01C-DF95030AE72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E62B4C7-2C63-449A-B01C-DF95030AE72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E62B4C7-2C63-449A-B01C-DF95030AE72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E62B4C7-2C63-449A-B01C-DF95030AE72C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE401361-E334-434D-B514-BEAC9586A13B} = {D145244E-C195-4331-AA85-DAD9FCE8DB34}
+		{4DFFF6C8-DED8-4755-9975-7FA522BA357C} = {D145244E-C195-4331-AA85-DAD9FCE8DB34}
+		{5E62B4C7-2C63-449A-B01C-DF95030AE72C} = {D145244E-C195-4331-AA85-DAD9FCE8DB34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {078328E3-C38D-4BBA-A014-15B7920DF7DD}

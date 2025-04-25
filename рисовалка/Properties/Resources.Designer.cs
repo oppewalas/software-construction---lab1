@@ -169,5 +169,25 @@ namespace рисовалка.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок_экрана_2025_04_21_210208 {
+            get {
+                object obj = ResourceManager.GetObject("Снимок экрана 2025-04-21 210208", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок_экрана_2025_04_21_212206 {
+            get {
+                object obj = ResourceManager.GetObject("Снимок экрана 2025-04-21 212206", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
